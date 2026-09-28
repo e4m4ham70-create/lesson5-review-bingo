@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lesson 5. Review Bingo - Student</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<div class="container">
+  <header>
+    <div><h1>Lesson 5. Review Bingo</h1><div class="sub">Student · Fun in Sokcho!</div></div>
+    <div class="badge">학생용</div>
+  </header>
+
+  <section id="joinCard" class="card">
+    <h2>게임 입장</h2>
+    <p class="note">선생님이 알려 준 학급 코드와 자신의 번호·이름을 입력하세요.</p>
+    <div class="login-grid">
+      <input id="roomCode" placeholder="학급 코드 예: L4-101">
+      <input id="studentNo" placeholder="번호 예: 12">
+      <input id="studentName" placeholder="이름">
+    </div>
+    <div class="row" style="margin-top:12px"><button id="joinBtn" class="primary">입장하기</button></div>
+  </section>
+
+  <main id="app" class="hidden">
+    <div id="identity" class="status"></div>
+    <div class="tabs">
+      <button class="tab active" data-tab="solve">1. 문제 풀기</button>
+      <button class="tab" data-tab="build">2. 빙고판 꾸미기</button>
+      <button class="tab" data-tab="play">3. 학생용 빙고</button>
+    </div>
+
+    <section id="solve" class="card">
+      <h2>1. 문제 풀기</h2>
+      <p class="note">1~15번의 답을 직접 입력하세요. 모르는 문제는 비워 두어도 됩니다. 답을 입력한 문항만 빙고판에 사용할 수 있습니다.</p>
+      <div id="questionList" class="q-list"></div>
+      <div class="row" style="margin-top:14px"><button id="saveAnswers" class="primary">답 저장하기</button></div>
+    </section>
+
+    <section id="build" class="card hidden">
+      <h2>2. 빙고판 꾸미기</h2>
+      <p class="note">답을 입력한 문항과 FREE 칸을 원하는 위치에 배치하세요. 남는 칸은 빈칸으로 둘 수 있습니다.</p>
+      <div id="tokenPool" class="pool"></div>
+      <div id="buildGrid" class="bingo-grid"></div>
+      <div id="buildStatus" class="status"></div>
+      <div class="row" style="justify-content:center;margin-top:12px">
+        <button id="shuffleBtn" class="secondary">자동으로 섞기</button>
+        <button id="clearBtn" class="ghost">비우기</button>
+        <button id="saveBoardBtn" class="primary">빙고판 확정</button>
+      </div>
+    </section>
+
+    <section id="play" class="card hidden">
+      <h2>3. 학생용 빙고</h2>
+      <div id="currentCall" class="current-call">아직 선생님이 문항을 추첨하지 않았습니다.</div>
+      <p class="note">선생님이 발표한 문항이 자신의 빙고판에 있으면 해당 칸을 직접 눌러 체크하세요.</p>
+      <div id="playGrid" class="bingo-grid"></div>
+      <div id="bingoStatus" class="status"></div>
+      <div class="row" style="justify-content:center;margin-top:12px"><button id="resetMarks" class="danger">내 체크 초기화</button></div>
+    </section>
+  </main>
+</div>
+<script type="module" src="./js/student.js"></script>
+</body>
+</html>
