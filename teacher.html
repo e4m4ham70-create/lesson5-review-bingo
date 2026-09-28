@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>
+    Lesson 5. Review Bingo - Teacher
+  </title>
+
+  <link
+    rel="stylesheet"
+    href="./css/style.css"
+  >
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+  <!-- =========================
+       상단 제목
+  ========================== -->
+
+  <header>
+
+    <div>
+
+      <h1>
+        Lesson 5. Review Bingo
+      </h1>
+
+      <div class="sub">
+        Teacher Dashboard · Fun in Sokcho!
+      </div>
+
+    </div>
+
+    <div class="badge">
+      교사용
+    </div>
+
+  </header>
+
+
+
+  <!-- =========================
+       교실 입장
+  ========================== -->
+
+  <section
+    id="teacherJoin"
+    class="card"
+  >
+
+    <h2>
+      교사용 화면 열기
+    </h2>
+
+    <p class="note">
+      학생들에게 안내할 학급 코드를 입력하세요.
+      같은 코드를 입력한 학생들이 이 화면에 나타납니다.
+    </p>
+
+
+    <div class="row">
+
+      <input
+        id="roomCode"
+        placeholder="학급 코드 예: L4-101"
+        style="max-width:420px"
+      >
+
+      <button
+        id="openRoomBtn"
+        class="primary"
+      >
+        교실 열기
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       교사용 대시보드
+  ========================== -->
+
+  <main
+    id="dashboard"
+    class="hidden"
+  >
+
+
+    <!-- 현재 학급 코드 -->
+
+    <div
+      id="roomInfo"
+      class="status"
+    >
+    </div>
+
+   
+    <!-- =========================
+         랜덤 추첨 + 추첨 기록
+    ========================== -->
+
+    <div
+      class="teacher-grid"
+      style="margin-top:16px"
+    >
+
+
+      <!-- 랜덤 추첨 -->
+
+      <section class="card">
+
+        <h2>
+          랜덤 추첨
+        </h2>
+
+
+        <div class="draw">
+
+
+          <!-- 문제 번호 -->
+
+          <div
+            id="drawNo"
+            class="draw-no"
+          >
+            READY
+          </div>
+
+
+          <!-- 문제 -->
+
+          <div
+            id="drawQ"
+            class="draw-q"
+          >
+            랜덤 문항을 뽑아 주세요.
+          </div>
+
+
+          <!-- 정답 -->
+
+          <div
+            id="drawA"
+            class="draw-a"
+          >
+            —
+          </div>
+
+
+          <!-- 버튼 -->
+
+          <div
+            class="row"
+            style="
+              justify-content:center;
+              margin-top:14px;
+            "
+          >
+
+            <button
+              id="drawBtn"
+              class="success"
+            >
+              랜덤 문항 뽑기
+            </button>
+
+
+            <button
+              id="revealAnswerBtn"
+              class="secondary hidden"
+            >
+              정답 보기
+            </button>
+
+
+            <button
+              id="resetDrawBtn"
+              class="ghost"
+            >
+              추첨 초기화
+            </button>
+
+            <button
+  id="unlockGameBtn"
+  class="ghost"
+  type="button"
+>
+  🔓 게임 준비 상태로 되돌리기
+</button>
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+
+      <!-- 추첨 기록 -->
+
+      <section class="card">
+
+        <h2>
+          추첨 기록
+        </h2>
+
+        <div id="drawHistory">
+        </div>
+
+      </section>
+
+
+    </div>
+
+
+
+    <!-- =========================
+         학생 현황
+    ========================== -->
+
+    <section class="card">
+
+
+      <div
+        class="row"
+        style="justify-content:space-between"
+      >
+
+        <div>
+
+          <h2
+            style="margin-bottom:4px"
+          >
+            학생 현황
+          </h2>
+
+          <div class="note">
+            학생의 답 입력 수, 빙고판 배치 수,
+            체크 수와 현재 빙고 줄 수를
+            실시간으로 확인합니다.
+          </div>
+
+        </div>
+
+
+        <div
+          id="studentCount"
+          class="badge"
+        >
+          0명
+        </div>
+
+      </div>
+
+
+
+      <div
+        style="
+          overflow:auto;
+          margin-top:12px;
+        "
+      >
+
+        <table>
+
+          <thead>
+
+            <tr>
+
+              <th>
+                번호
+              </th>
+
+              <th>
+                이름
+              </th>
+
+              <th>
+                답 입력
+              </th>
+
+              <th>
+                배치
+              </th>
+
+              <th>
+                체크
+              </th>
+
+              <th>
+                빙고
+              </th>
+
+              <th>
+                빙고판
+              </th>
+
+            </tr>
+
+          </thead>
+
+
+          <tbody id="studentRows">
+          </tbody>
+
+        </table>
+
+      </div>
+
+
+    </section>
+
+<!-- =========================
+     학습 분석
+========================== -->
+
+<section class="card">
+
+  <div
+    class="row"
+    style="justify-content:space-between"
+  >
+
+    <div>
+
+      <h2 style="margin-bottom:4px">
+        학습 분석
+      </h2>
+
+      <div class="note">
+        Q1~Q15 전체는 Reading으로 분석합니다.
+        학생별 본문 이해 정도와 교실 전체의 문항별 학습 경향을 확인할 수 있습니다.
+      </div>
+
+    </div>
+
+
+    <div class="badge">
+      Reading 15
+    </div>
+
+  </div>
+
+
+  <!-- 분석 화면 선택 버튼 -->
+
+  <div
+    class="tabs"
+    style="margin-top:16px"
+  >
+
+    <button
+  id="studentAnalysisTab"
+  class="tab"
+  type="button"
+>
+  학생별 분석
+</button>
+
+<button
+  id="classAnalysisTab"
+  class="tab"
+  type="button"
+>
+  교실별 분석
+</button>
+
+  </div>
+
+
+
+  <!-- =========================
+       학생별 분석
+  ========================== -->
+
+  <div
+  id="studentAnalysisPanel"
+  class="hidden"
+>
+
+    <div style="overflow:auto">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              번호
+            </th>
+
+            <th>
+              이름
+            </th>
+
+            <th>
+              Reading
+            </th>
+
+            <th>
+              진단
+            </th>
+
+            <th>
+              오답
+            </th>
+
+            <th>
+              미응답
+            </th>
+
+            <th>
+              보완 필요
+            </th>
+
+            <th>
+              상세
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="studentAnalysisRows">
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- =========================
+       교실별 분석
+  ========================== -->
+
+  <div
+    id="classAnalysisPanel"
+    class="hidden"
+  >
+
+
+    <!-- 영역별 요약 -->
+
+    <div
+      style="
+        display:grid;
+        grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+        gap:12px;
+        margin-bottom:16px;
+      "
+    >
+
+
+      <!-- Reading -->
+
+      <div
+        class="status"
+        style="margin-top:0"
+      >
+
+        <div
+          style="
+            font-size:13px;
+            font-weight:700;
+          "
+        >
+          Reading 평균 성취율
+        </div>
+
+
+        <div
+          id="classReadingRate"
+          style="
+            font-size:28px;
+            margin-top:4px;
+          "
+        >
+          -
+        </div>
+
+
+        <div
+          id="classReadingMeta"
+          class="note"
+        >
+        </div>
+
+      </div>
+
+
+
+      
+
+
+      <!-- 우선 보완 영역 -->
+
+      <div
+        class="status"
+        style="margin-top:0"
+      >
+
+        <div
+          style="
+            font-size:13px;
+            font-weight:700;
+          "
+        >
+          우선 보완 영역
+        </div>
+
+
+        <div
+          id="classPriority"
+          style="
+            font-size:20px;
+            margin-top:6px;
+          "
+        >
+          -
+        </div>
+
+
+        <div
+          id="classPriorityMeta"
+          class="note"
+        >
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+
+    <!-- 문항별 분석 -->
+
+    <h3>
+      문항별 분석
+    </h3>
+
+
+    <div style="overflow:auto">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              문항
+            </th>
+
+            <th>
+              영역
+            </th>
+
+            <th>
+              정답
+            </th>
+
+            <th>
+              정답 학생
+            </th>
+
+            <th>
+              오답 학생
+            </th>
+
+            <th>
+              미응답
+            </th>
+
+            <th>
+              성취율
+            </th>
+
+            <th>
+              응답률
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="questionAnalysisRows">
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- =========================
+     지난 수업 기록
+========================== -->
+
+<section class="card">
+
+  <div
+    class="row"
+    style="
+      justify-content:space-between;
+      align-items:center;
+    "
+  >
+
+    <div>
+
+      <h2 style="margin-bottom:4px">
+        지난 수업 기록
+      </h2>
+
+      <div class="note">
+        이전에 사용한 교실 코드를 선택하여
+        학생 현황과 학습 분석 결과를 다시 확인할 수 있습니다.
+      </div>
+
+    </div>
+
+    <button
+      id="refreshRoomHistoryBtn"
+      class="ghost"
+      type="button"
+    >
+      기록 새로고침
+    </button>
+
+  </div>
+
+
+  <!-- 저장된 수업 목록 -->
+
+  <div
+    id="roomHistoryList"
+    style="margin-top:16px"
+  >
+
+    <div class="note">
+      저장된 수업 기록을 불러오는 중입니다.
+    </div>
+
+  </div>
+
+</section>
+
+  </main>
+
+</div>
+
+
+
+<!-- =========================
+     학생 빙고판 보기 모달
+========================== -->
+
+<div
+  id="boardModal"
+  class="modal hidden"
+>
+
+  <div class="modal-box">
+
+
+    <div
+      class="row"
+      style="justify-content:space-between"
+    >
+
+      <h2 id="modalTitle">
+        학생 빙고판
+      </h2>
+
+
+      <button
+        id="closeModal"
+        class="ghost"
+      >
+        닫기
+      </button>
+
+    </div>
+
+
+
+    <div
+      id="modalBoard"
+      class="bingo-grid"
+    >
+    </div>
+
+
+
+    <div
+      id="modalStatus"
+      class="status"
+    >
+    </div>
+
+
+  </div>
+
+</div>
+
+<!-- =========================
+     학생별 학습 분석 상세 창
+========================== -->
+
+<div
+  id="analysisModal"
+  class="modal hidden"
+>
+
+  <div class="modal-box">
+
+
+    <!-- 제목 + 닫기 -->
+
+    <div
+      class="row"
+      style="justify-content:space-between"
+    >
+
+      <h2 id="analysisModalTitle">
+        학생별 분석
+      </h2>
+
+
+      <button
+        id="closeAnalysisModal"
+        class="ghost"
+      >
+        닫기
+      </button>
+
+    </div>
+
+
+
+    <!-- 학생 종합 진단 -->
+
+    <div
+      id="studentAnalysisSummary"
+      class="status"
+    >
+    </div>
+
+
+
+    <!-- Reading 결과 -->
+
+    <div
+      style="
+        display:grid;
+        grid-template-columns:
+        repeat(auto-fit,minmax(220px,1fr));
+        gap:12px;
+        margin:16px 0;
+      "
+    >
+
+
+      <!-- Reading -->
+
+      <div
+        class="status"
+        style="margin-top:0"
+      >
+
+        <div style="font-size:13px">
+          Reading
+        </div>
+
+        <div
+          id="detailReading"
+          style="
+            font-size:24px;
+            margin-top:4px;
+          "
+        >
+        </div>
+
+      </div>
+
+
+
+     
+
+    </div>
+
+
+
+    <!-- 학생별 Q1~Q15 결과 -->
+
+    <div style="overflow:auto">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              문항
+            </th>
+
+            <th>
+              영역
+            </th>
+
+            <th>
+              학생 답
+            </th>
+
+            <th>
+              정답
+            </th>
+
+            <th>
+              결과
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="studentDetailRows">
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+<!-- 교사용 JavaScript -->
+
+<script
+  type="module"
+  src="./js/teacher.js"
+>
+</script>
+
+
+</body>
+
+</html>
