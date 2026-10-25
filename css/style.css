@@ -124,3 +124,16 @@ table{width:100%;border-collapse:collapse}th,td{padding:10px;border-bottom:1px s
 .modal-box{background:#fff;width:min(820px,100%);max-height:90vh;overflow:auto;border-radius:20px;padding:20px}
 .current-call{border:2px solid #c4b5fd;background:#f5f3ff;border-radius:16px;padding:15px;text-align:center;margin-bottom:14px}
 @media(max-width:760px){.container{padding:12px}.login-grid,.teacher-grid{grid-template-columns:1fr}.cell{font-size:12px;border-radius:10px}.bingo-grid{gap:6px}}
+.corner-seal {
+  position: fixed;
+  right: 8px;
+  bottom: 8px;
+
+  width: 120px;
+  height: auto;
+
+  z-index: 9999;
+
+  opacity: 0.95;
+  pointer-events: none;
+}
